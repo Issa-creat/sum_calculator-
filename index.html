@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> حساب مجموع القطة</title>
+    <title>حساب مجموع القطة</title>
     <style>
         body {
             font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -28,18 +28,19 @@
             text-align: center;
             margin-bottom: 20px;
         }
-        textarea {
-            width: calc(100% - 22px);
-            height: 200px;
-            padding: 10px;
-            border: 1px solid #666666; /* لون حدود المربع النصي */
-            border-radius: 4px;
-            resize: vertical;
-            margin-bottom: 10px;
-            font-size: 16px;
-            line-height: 1.5;
-            background-color: #1f1f1f; /* لون خلفية المربع النصي */
+        pre {
+            font-size: 14px; /* حجم الخط */
+            line-height: 1.6; /* تباعد السطور */
+            white-space: pre-wrap; /* تعدد السطور */
+            background-color: rgba(31, 31, 31, 0.8); /* لون خلفية المربع النصي بشفافية */
             color: #ffffff; /* لون النص داخل المربع النصي */
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            border: 1px solid #666666; /* لون حدود المربع النصي */
+            width: calc(100% - 22px); /* عرض المربع النصي */
+            height: 200px; /* ارتفاع المربع النصي */
+            overflow-y: auto; /* التمرير العمودي */
         }
         button {
             display: block;
@@ -60,7 +61,6 @@
             font-size: 18px;
             text-align: center;
             margin-top: 20px;
-            color: #ffffff; /* لون النص */
         }
         #total {
             font-weight: bold;
@@ -70,11 +70,8 @@
 </head>
 <body>
     <div class="container">
-        <h1>حساب مجموع الأرقام</h1>
-        <textarea id="inputText">
-             ملاحظة حدد فقط اسماء ومبالغ اصحاب القطة فقط مثل هذه القائمة
-            وامسح هذه الرسالة  وبدلها بقائمة القاطين
-            ،،،،،،،،،،،،،،،،،،،،،،،،،،،،،،،،،،،،،،،،،،،،،،
+        <h1>حساب مجموع القطة</h1>
+        <pre>
 ١-مقبول غازي ١٥٠٠ريال✅
 ٢-منصور حسن ٣٠٠✅
 ٣-محمد يحي عمودي ٥٠٠✅
@@ -86,18 +83,18 @@
 ٩-عيسى علي جعر ٢٠٠✅
 ١٠-حسن حسين٢٥٠✅
 ١١_من اولاد المرحوم عيسى مصهف٢٠٠✅
-١٢ محمد صم ٢٠٠00000✅ واصل بيد العريس
+١٢ محمد صم ٢٠٠✅ واصل بيد العريس
 ١٣- عبدالله جبار  200﷼✅
 ١٤- حسن جبار ﷼✅
 ١٥-علي كرك ٥٠٠ريال واصله في جيب العريس
 ١٦موسي جبران ٤٠٠✅
-        </textarea>
+        </pre>
         <button onclick="calculateSum()">احسب المجموع</button>
         <p id="result">مجموع القطع في القروب: <span id="total"></span> ريال</p>
     </div>
     <script>
         function calculateSum() {
-            const text = document.getElementById('inputText').value;
+            const text = document.getElementsByTagName('pre')[0].textContent;
             const arabicToEnglishNumbers = (str) => str.replace(/[\u0660-\u0669]/g, (d) => d.charCodeAt(0) - 1632).replace(/[\u06F0-\u06F9]/g, (d) => d.charCodeAt(0) - 1776);
             const convertedText = arabicToEnglishNumbers(text);
             const regex = /\d+/g;
