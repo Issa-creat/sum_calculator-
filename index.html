@@ -41,6 +41,7 @@
             width: calc(100% - 22px); /* عرض المربع النصي */
             height: 200px; /* ارتفاع المربع النصي */
             overflow-y: auto; /* التمرير العمودي */
+            cursor: text; /* تغيير شكل المؤشر عند التحريك إلى نص */
         }
         button {
             display: block;
@@ -71,24 +72,7 @@
 <body>
     <div class="container">
         <h1>حساب مجموع القطة</h1>
-        <pre>
-١-مقبول غازي ١٥٠٠ريال✅
-٢-منصور حسن ٣٠٠✅
-٣-محمد يحي عمودي ٥٠٠✅
-٤-ابراهيم بهزان ٥٠٠✅
-٥-موسى علي حسن ٥٠٠✅
-٦-محمد يحيى مصهف٥٠٠✅
-٧-محمدحسين ٢٠٠✅
-٨-عبدالله محمد حسين٥٠٠✅
-٩-عيسى علي جعر ٢٠٠✅
-١٠-حسن حسين٢٥٠✅
-١١_من اولاد المرحوم عيسى مصهف٢٠٠✅
-١٢ محمد صم ٢٠٠✅ واصل بيد العريس
-١٣- عبدالله جبار  200﷼✅
-١٤- حسن جبار ﷼✅
-١٥-علي كرك ٥٠٠ريال واصله في جيب العريس
-١٦موسي جبران ٤٠٠✅
-        </pre>
+        <pre onclick="clearPlaceholder()">اختر هذا النص لبدء الكتابة...</pre>
         <button onclick="calculateSum()">احسب المجموع</button>
         <p id="result">مجموع القطع في القروب: <span id="total"></span> ريال</p>
     </div>
@@ -102,6 +86,13 @@
             let listInt = listStr.map(Number).filter(num => num > 99);
             let sum = listInt.reduce((a, b) => a + b, 0);
             document.getElementById('total').textContent = sum;
+        }
+
+        function clearPlaceholder() {
+            const preElement = document.getElementsByTagName('pre')[0];
+            if (preElement.textContent === 'اختر هذا النص لبدء الكتابة...') {
+                preElement.textContent = '';
+            }
         }
     </script>
 </body>
