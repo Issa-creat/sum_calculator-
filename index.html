@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>حساب مجموع القطة</title>
+    <title>حساب مجموع القطع</title>
     <style>
         body {
             font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -68,30 +68,60 @@
             font-weight: bold;
             color: #4CAF50; /* لون النص */
         }
+        #extractedNumbers {
+            font-size: 14px;
+            line-height: 1.6;
+            background-color: rgba(31, 31, 31, 0.8);
+            color: #ffffff;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+            border: 1px solid #666666;
+            width: calc(100% - 22px);
+            height: 100px;
+            overflow-y: auto;
+            resize: vertical;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>حساب مجموع القطة</h1>
+        <h1>حاسبة القائمة النصية</h1>
         <pre id="inputText" contenteditable onclick="clearPlaceholder()">اختر هذا النص لبدء الكتابة...</pre>
         <button onclick="calculateSum()">احسب المجموع</button>
-        <p id="result">مجموع القطع في القروب: <span id="total"></span> ريال</p>
+        <p id="result">مجموع القائمة النصية: <span id="total"></span> ريال</p>
+        <div id="extractedNumbers"></div>
     </div>
     <script>
         function calculateSum() {
             const text = document.getElementById('inputText').textContent;
+            
+            // دالة لتحويل الأرقام العربية إلى أرقام إنجليزية
             const arabicToEnglishNumbers = (str) => str.replace(/[\u0660-\u0669]/g, (d) => d.charCodeAt(0) - 1632).replace(/[\u06F0-\u06F9]/g, (d) => d.charCodeAt(0) - 1776);
+            
+            // تطبيق دالة التحويل
             const convertedText = arabicToEnglishNumbers(text);
+            
+            // استخراج الأرقام العددية من النص المحول
             const regex = /\d+/g;
             let listStr = convertedText.match(regex);
+            
+            // تحويل النصوص إلى أرقام وتصفية الأرقام لتكون أكبر من 99
             let listInt = listStr.map(Number).filter(num => num > 99);
+            
+            // حساب المجموع الإجمالي
             let sum = listInt.reduce((a, b) => a + b, 0);
-            document.getElementById('total').textContent = sum;
+            
+            // عرض المجموع الإجمالي
+            document.getElementById('total').textContent = sum + ' ريال';
+            
+            // عرض الأرقام المستخرجة
+            document.getElementById('extractedNumbers').textContent = listInt.join(', ');
         }
 
         function clearPlaceholder() {
             const preElement = document.getElementById('inputText');
-            if (preElement.textContent ==='حدد فقط من القائمة اصحاب ومبالغ  االقطة للحساب والا سيكون هناك خطأ') {
+            if (preElement.textContent === 'اختر هذا النص لبدء الكتابة...') {
                 preElement.textContent = '';
             }
         }
